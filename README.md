@@ -30,22 +30,6 @@
 | 2 | **AYA Baida** | ENSA El Jadida |
 | 3 | **LAKHTIRI Salma** | ENSA El Jadida |
 
----
-
-## 📋 Table des Matières
-
-1. [Présentation du Projet](#-présentation-du-projet)
-2. [Vue d'ensemble du Fonctionnement](#-vue-densemble-du-fonctionnement)
-3. [Structure des Fichiers](#-structure-des-fichiers)
-4. [Technologies & Bibliothèques](#-technologies--bibliothèques)
-5. [Données Utilisées](#-données-utilisées)
-6. [Prétraitement des Données](#-prétraitement-des-données)
-7. [Architecture du Modèle](#-architecture-du-modèle)
-8. [Entraînement & Évaluation](#-entraînement--évaluation)
-9. [Sauvegarde & Chargement](#-sauvegarde--chargement)
-10. [Interface Utilisateur](#-interface-utilisateur)
-11. [Lancement du Projet](#-lancement-du-projet)
-12. [Résultats](#-résultats)
 
 ---
 
@@ -109,10 +93,9 @@ projet-phishing/
 ├── app.py                        # Point d'entrée Streamlit
 │
 ├── pages/
-│   ├── 1_Train_URL.py            # Entraînement sur URLs (CSV)
-│   ├── 2_Train_HTML.py           # Entraînement sur pages HTML
-│   ├── 3_Predict.py              # Prédiction manuelle
-│   └── 4_Metrics.py              # Visualisation des métriques
+│   ├── 1_Acceuil.py            # Entraînement sur URLs (CSV)
+│   ├── 2_Detection_url.py           # Entraînement sur pages HTML
+│   └── 3_Detection__Fichier.py              # Prédiction manuell
 │
 ├── data/
 │   ├── urltest.csv               # Dataset URLs (par défaut)
@@ -129,7 +112,13 @@ projet-phishing/
 ├── models/                       # Modèles sauvegardés (.keras)
 ├── tokenizers/                   # Tokeniseurs sauvegardés (.pkl)
 ├── metrics/                      # Métriques JSON
-│
+├── models&entrainement /
+│   ├── 1_paths.py          
+│   ├── 2_cnn_model.py         
+│   ├── 3_preprocessing.py            
+│   ├── 4_file_reader.py
+│   ├── 5_metrics_utils.py
+│   └── 6_visualization.py
 └── requirements.txt
 ```
 
@@ -151,29 +140,22 @@ projet-phishing/
 
 ### Installation
 
-```bash
+#  Créer et activer l'environnement virtuel
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+
+#  Installer les dépendances
 pip install -r requirements.txt
-```
 
-Contenu de `requirements.txt` :
-
-```
-tensorflow>=2.10
-streamlit>=1.25
-scikit-learn>=1.3
-pandas>=2.0
-numpy>=1.24
-beautifulsoup4>=4.12
-joblib>=1.3
-```
-
+# Lancer l'application
+streamlit run app.py
 ---
 
 ## 📊 Données Utilisées
 
 ### Types de données
 
-> Ce projet traite exclusivement du **texte** (pas d'images).
+> Ce projet traite exclusivement du **texte** .
 
 | Source | Format | Description |
 |--------|--------|-------------|
@@ -185,7 +167,7 @@ joblib>=1.3
 ### Labels / Classes
 
 - **CSV** : labels textuels normalisés → `phishing`, `legitimate`, `1`, `0`, `yes`, `no`…
-- **HTML** : organisation par dossiers → `Phish/` = 1, `NotPhish/` = 0
+- **HTML/TXT...** : organisation par dossiers → `Phish/` = 1, `NotPhish/` = 0
 
 ---
 
